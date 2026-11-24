@@ -5,15 +5,16 @@ export const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    axios.get("https://fakestoreapi.com/products")
+    axios.get(process.env.REACT_APP_API_URL || "https://fakestoreapi.com/products")
       .then(res => setProducts(res.data))
-      .catch(err => console.log(err));
+      .catch(() => setError(true));
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products }}>
+    <ProductContext.Provider value={{ products, error }}>
       {children}
     </ProductContext.Provider>
   );
