@@ -1,11 +1,26 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
-function Navbar() {
+function NavBar() {
+  const { count } = useCart();
   return (
-    <nav className="navbar bg-primary">
-     <h1> fake store app</h1>
-    </nav>
+    <>
+      <div className="demo-banner">
+        Demo store: no real products are sold and no payments are taken.
+      </div>
+      <header className="site-header">
+        <div className="container">
+          <Link to="/" className="brand">Fake Store</Link>
+          <nav className="nav-links">
+            <Link to="/">Shop</Link>
+            <Link to="/cart" className="cart-link">
+              Cart <span className="badge">{count}</span>
+            </Link>
+          </nav>
+        </div>
+      </header>
+    </>
   );
 }
 
-export default Navbar;
+export default NavBar;
